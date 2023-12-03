@@ -230,7 +230,6 @@ export default async (req, res) => {
     ...filterableFields
   } = req.filterableFields
   const listConfig = req.listConfig
-
   // get only published products for store endpoint
   filterableFields["status"] = ["published"]
   // store APIs only receive active and public categories to query from
@@ -445,6 +444,8 @@ export class StoreGetProductsPaginationParams extends PriceSelectionParams {
  * Parameters used to filter and configure the pagination of the retrieved products.
  */
 export class StoreGetProductsParams extends StoreGetProductsPaginationParams {
+  @IsString()
+  store_id?: string
   /**
    * {@inheritDoc FilterableProductProps.id}
    */

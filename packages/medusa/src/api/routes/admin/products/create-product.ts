@@ -111,8 +111,13 @@ import { FeatureFlagDecorators } from "../../../../utils/feature-flag-decorators
  *   "500":
  *     $ref: "#/components/responses/500_error"
  */
+// store_id is required filed that extract from req.query
 export default async (req, res) => {
-  const validated = await validator(AdminPostProductsReq, req.body)
+  const storeId = req.query.store_id
+  const validated = await validator(AdminPostProductsReq, {
+    ...req.body,
+    store_id: storeId,
+  })
 
   const logger: Logger = req.scope.resolve("logger")
   const productService: ProductService = req.scope.resolve("productService")
@@ -259,7 +264,7 @@ export default async (req, res) => {
   if (isMedusaV2Enabled) {
     rawProduct = await getProductWithIsolatedProductModule(req, product.id)
   } else {
-    rawProduct = await productService.retrieve(product.id, {
+    rawProduct = await productService.retrieve(product.id, storeId, {
       select: defaultAdminProductFields,
       relations: defaultAdminProductRelations,
     })
@@ -624,6 +629,9 @@ class ProductVariantReq {
 export class AdminPostProductsReq {
   @IsString()
   title: string
+
+  @IsString()
+  store_id: string
 
   @IsString()
   @IsOptional()
