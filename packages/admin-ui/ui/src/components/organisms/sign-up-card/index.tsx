@@ -6,12 +6,14 @@ import { useTranslation } from "react-i18next"
 import WidgetContainer from "../../extensions/widget-container"
 import Button from "../../fundamentals/button"
 import Logo from "../../atoms/logo"
-import GmailIcon from "../../fundamentals/icons/gmail-icon"
 import PhoneIcon from "../../fundamentals/icons/phone-icon"
+import GmailIcon from "../../fundamentals/icons/gmail-icon";
 import SigninInput from "../../molecules/input-signin"
 import InputError from "../../atoms/input-error"
 import { LoginFlow, UpdateLoginFlowBody} from "@ory/client";
 import {ActionCard, CenterLink, Flow, LogoutLink, MarginCard} from "../../../ory/pkg";
+import ory from "../../../ory/pkg/sdk";
+import {handleFlowError, handleGetFlowError} from "../../../ory/pkg/errors";
 
 
 type FormValues = {
@@ -54,8 +56,8 @@ const LoginCard = ({ toResetPassword }: LoginCardProps) => {
 
         // If ?flow=.. was in the URL, we fetch it
         if (flowId) {
-            ory
-                .getLoginFlow({ id: String(flowId) })
+             ory
+                 .getLoginFlow({ id: String(flowId) })
                 .then(({ data }) => {
                     setFlow(data)
                 })
@@ -77,7 +79,7 @@ const LoginCard = ({ toResetPassword }: LoginCardProps) => {
     }, [flowId, history, location, aal, refresh, returnTo, flow])
     // }, [])
 
-    const onSubmit = (values: UpdateLoginFlowBody) =>{
+    const onSubmit = (values: UpdateLoginFlowBody ) =>{
 
         console.log(values)
         history
@@ -112,28 +114,28 @@ const LoginCard = ({ toResetPassword }: LoginCardProps) => {
             })
     }
 
-    const onSubmit = (values: FormValues) => {
-        mutate(values, {
-            onSuccess: () => {
-                navigate("/a/orders")
-            },
-            onError: () => {
-                setError(
-                    "password",
-                    {
-                        type: "manual",
-                        message: t(
-                            "login-card-no-match",
-                            "These credentials do not match our records."
-                        ),
-                    },
-                    {
-                        shouldFocus: true,
-                    }
-                )
-            },
-        })
-    }
+    // const onSubmit = (values: FormValues ) => {
+    //     mutate(values, {
+    //         onSuccess: () => {
+    //             navigate("/a/orders")
+    //         },
+    //         onError: () => {
+    //             setError(
+    //                 "password",
+    //                 {
+    //                     type: "manual",
+    //                     message: t(
+    //                         "login-card-no-match",
+    //                         "These credentials do not match our records."
+    //                     ),
+    //                 },
+    //                 {
+    //                     shouldFocus: true,
+    //                 }
+    //             )
+    //         },
+    //     })
+    // }
 
     return (
         <div className="flex w-full flex-1 flex-wrap items-center justify-center px-11 text-center">
@@ -148,6 +150,8 @@ const LoginCard = ({ toResetPassword }: LoginCardProps) => {
                     />
                 )
             })}
+
+            <Flow onSubmit={onSubmit} flow={flow} />
 
             <div className="flex flex-col justify-center p-9">
                 <div className="mb-1 py-10 ">
