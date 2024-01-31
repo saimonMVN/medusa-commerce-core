@@ -1,10 +1,11 @@
 import { useAdminGetSession } from "medusa-react"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import LoginCard from "../components/organisms/login-card"
+import LoginCard from "../components/organisms/sign-up-card"
 import ResetTokenCard from "../components/organisms/reset-token-card"
 import SEO from "../components/seo"
 import PublicLayout from "../components/templates/login-layout"
+import OnboardingProfile from "../components/organisms/onborading-profile";
 
 const LoginPage = () => {
   const [resetPassword, setResetPassword] = useState(false)
@@ -38,11 +39,14 @@ const LoginPage = () => {
   return (
     <PublicLayout>
       <SEO title="Login" />
-      {resetPassword ? (
-        <ResetTokenCard goBack={showLogin} />
-      ) : (
-        <LoginCard toResetPassword={showResetPassword} />
-      )}
+      {/*{resetPassword ? (*/}
+      {/*  <ResetTokenCard goBack={showLogin} />*/}
+      {/*) : (*/}
+      {/*  <LoginCard toResetPassword={showResetPassword} />*/}
+      {/*)}*/}
+
+      <LoginCard toResetPassword={showResetPassword}/>
+      <OnboardingProfile />
     </PublicLayout>
   )
 }
