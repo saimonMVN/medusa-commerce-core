@@ -14,6 +14,8 @@ const Dashboard = lazy(() => import("./pages/a"))
 const IndexPage = lazy(() => import("./pages/index"))
 const InvitePage = lazy(() => import("./pages/invite"))
 const LoginPage = lazy(() => import("./pages/login"))
+const SignUp = lazy(() => import("./pages/sign-up"))
+
 const ResetPasswordPage = lazy(() => import("./pages/reset-password"))
 
 const router = createBrowserRouter(
@@ -37,6 +39,8 @@ const router = createBrowserRouter(
         }
       />
       <Route path="login" element={<LoginPage />} />
+      <Route path="signup" element={<SignUp />} />
+
       <Route path="reset-password" element={<ResetPasswordPage />} />
       <Route path="*" element={<NotFound />} />
     </>

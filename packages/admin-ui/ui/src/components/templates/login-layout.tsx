@@ -3,8 +3,8 @@ import { Toaster } from "react-hot-toast"
 
 const PublicLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <Toaster
+    <div className="">
+         <Toaster
         containerStyle={{
           top: 24,
           left: 24,
@@ -13,9 +13,6 @@ const PublicLayout = ({ children }: PropsWithChildren) => {
         }}
         position="bottom-right"
       />
-      <div className="mb-large">
-        <Logo />
-      </div>
       {children}
     </div>
   )

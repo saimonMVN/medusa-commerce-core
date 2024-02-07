@@ -28,7 +28,7 @@ export const Messages = ({ messages }: MessagesProps) => {
   return (
     <div>
       {messages.map((message) => (
-        <Message key={message.id} message={message} />
+        <Message  key={message.id} message={message} />
       ))}
     </div>
   )

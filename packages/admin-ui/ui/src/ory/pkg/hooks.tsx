@@ -1,7 +1,7 @@
 import { AxiosError } from "axios"
 import { useState, useEffect, DependencyList } from "react"
-import {useNavigate} from "react-router-dom";
-import ory from "./sdk";
+import { useNavigate } from "react-router-dom"
+import ory from "./sdk"
 
 
 // Returns a function which will log the user out
@@ -31,7 +31,7 @@ export function LogoutLink(deps?: DependencyList) {
     if (logoutToken) {
       ory
         .updateLogoutFlow({ token: logoutToken })
-        .then(() =>navigate("/auth-admin/login"))
+        .then(() => navigate("/auth-admin/login"))
         .then(() => navigate(-1))
     }
   }
