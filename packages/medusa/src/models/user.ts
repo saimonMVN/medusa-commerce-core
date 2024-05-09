@@ -1,8 +1,16 @@
-import { BeforeInsert, Column, Entity, Index } from "typeorm"
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+} from "typeorm"
 
 import { DbAwareColumn } from "../utils/db-aware-column"
 import { SoftDeletableEntity } from "../interfaces/models/soft-deletable-entity"
 import { generateEntityId } from "../utils/generate-entity-id"
+import { Store } from "./store"
 
 export enum UserRoles {
   ADMIN = "admin",
@@ -12,6 +20,14 @@ export enum UserRoles {
 
 @Entity()
 export class User extends SoftDeletableEntity {
+  // new filed added start
+  @Column({ nullable: true })
+  store_id?: string
+  @ManyToOne(() => Store, (store) => store.members)
+  @JoinColumn({ name: "store_id", referencedColumnName: "id" })
+  store?: Store
+  // new filed added end
+
   @DbAwareColumn({
     type: "enum",
     enum: UserRoles,

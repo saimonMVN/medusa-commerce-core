@@ -336,17 +336,17 @@ export type StoreCartsRes = {
  */
 export type StoreCompleteCartRes =
   | {
-      type: "cart"
-      data: Cart
-    }
+    type: "cart"
+    data: Cart
+  }
   | {
-      type: "order"
-      data: Order
-    }
+    type: "order"
+    data: Order
+  }
   | {
-      type: "swap"
-      data: Swap
-    }
+    type: "swap"
+    data: Swap
+  }
 
 export * from "./add-shipping-method"
 export * from "./create-cart"

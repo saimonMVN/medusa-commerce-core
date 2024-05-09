@@ -87,13 +87,13 @@ export default async (req, res) => {
 
   const completionStrat: AbstractCartCompletionStrategy = req.scope.resolve(
     "cartCompletionStrategy"
-  )
+  
 
   const { response_code, response_body } = await completionStrat.complete(
-    id,
-    idempotencyKey,
-    req.request_context
-  )
+      id,
+      idempotencyKey,
+      req.request_context
+    )
 
   if (response_body.data) {
     response_body.data = cleanResponseData(response_body.data, [])
